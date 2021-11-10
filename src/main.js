@@ -7,6 +7,8 @@ import {identifyArray} from "./mild/mild_2.js";
 import {removeKey} from "./mild/mild_2.js";
 import {removeKeyNonDestructive} from "./mild/mild_2.js";
 import {removeKeys} from "./mild/mild_2.js";
-var dict = {"1" : "hello" , "2" : "there"}
-console.log(removeKeys(dict,["2","1"])) ; 
-console.log(dict) ; 
+import {getSum} from "./medium/medium_1.js";
+import {getMedian} from "./medium/medium_1.js";
+import {getStatistics} from "./medium/medium_1.js";
+
+console.log(getStatistics([1,2,3,4])) ; 
