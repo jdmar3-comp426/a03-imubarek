@@ -49,7 +49,7 @@ export function maxAndMin(numbers) {
             min = numbers[x] ; 
         }
     }
-    return {"min" : min , "max": max} ; 
+    return {"max" : max , "min": min} ; 
 }
 
 /**
@@ -63,5 +63,5 @@ export function maxAndMin(numbers) {
  *
  */
 export function countArray(array) {
-    
+
 }
