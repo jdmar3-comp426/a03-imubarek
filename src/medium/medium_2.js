@@ -20,11 +20,36 @@ see under the methods section
  * @param {allCarStats.ratioHybrids} ratio of cars that are hybrids
  */
 export const allCarStats = {
-    avgMpg: undefined,
-    allYearStats: undefined,
-    ratioHybrids: undefined,
+    avgMpg: getAvgMpg(), 
+    allYearStats: getAllYearStats(),
+    ratioHybrids: getRatioHybrids()
 };
 
+export function getAvgMpg() {
+    let sum = 0 ; 
+    mpg_data.forEach((element) => { 
+        sum+= element.city_mpg ;
+        sum+= element.highway_mpg ; 
+    }) ; 
+    return sum / (mpg_data.length * 2) ; 
+}
+
+export function getAllYearStats() {
+    let yearsArray = [] ; 
+    mpg_data.forEach((element) => { 
+        yearsArray.push(element.year) ;  
+    }) ; 
+    return getStatistics(yearsArray) ; 
+}
+export function getRatioHybrids() {
+    let numberHybrid = 0 ; 
+    mpg_data.forEach((element) => { 
+        if(element.hybrid){
+            numberHybrid++ ; 
+        } 
+    }) ; 
+    return numberHybrid /mpg_data.length;
+}
 
 /**
  * HINT: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
@@ -84,6 +109,37 @@ export const allCarStats = {
  * }
  */
 export const moreStats = {
-    makerHybrids: undefined,
+    makerHybrids: getMakerHybrids(),
     avgMpgByYearAndHybrid: undefined
 };
+
+export function getMakerHybrids() {
+    let newData = mpg_data.filter(element => {return element.hybrid;}) ; //Filter for only hybrids
+
+    let makerHybridsArray = [] ;
+
+    makerHybridsArray.push({make:newData[0].make , hybrids : [newData[0].id]}) ;
+
+    for(let x = 1 ; x < newData.length ; x++){
+        let makeInArray = false ; 
+        let makeIndex = -1 ; 
+        for(let y = 0 ; y<makerHybridsArray.length ; y++){
+            if(makerHybridsArray[y].make == newData[x].make){
+                makeInArray = true ; 
+                makeIndex = y ; 
+            }
+        }
+        if(makeInArray){
+            makerHybridsArray[makeIndex].hybrids.push(newData[x].id) ; 
+        }
+        else{
+            makerHybridsArray.push({make:newData[x].make , hybrids : [newData[x].id]}) ; 
+        }
+    }
+    return makerHybridsArray ; 
+
+
+
+}
+
+

@@ -11,4 +11,7 @@ import {getSum} from "./medium/medium_1.js";
 import {getMedian} from "./medium/medium_1.js";
 import {getStatistics} from "./medium/medium_1.js";
 
-console.log(getStatistics([1,2,3,4])) ; 
+import {allCarStats} from "./medium/medium_2.js";
+import {moreStats} from "./medium/medium_2.js";
+
+console.log(moreStats.makerHybrids) ; 
