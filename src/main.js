@@ -13,5 +13,9 @@ import {getStatistics} from "./medium/medium_1.js";
 
 import {allCarStats} from "./medium/medium_2.js";
 import {moreStats} from "./medium/medium_2.js";
+import {searchByYear, searchHighPower, searchName} from "./medium/medium_3.js";
+import {searchMpg} from "./medium/medium_3.js";
+import {} from "./medium/medium_3.js";
+import mpg_data from "./medium/data/mpg_data.js";
 
-console.log(moreStats.makerHybrids) ; 
+console.log(searchByYear(mpg_data , [2009,2011])) ;  

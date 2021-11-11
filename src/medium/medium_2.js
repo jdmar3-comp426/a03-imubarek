@@ -26,12 +26,15 @@ export const allCarStats = {
 };
 
 export function getAvgMpg() {
-    let sum = 0 ; 
+    let city_sum = 0 ; 
+    let highway_sum = 0 ; 
     mpg_data.forEach((element) => { 
-        sum+= element.city_mpg ;
-        sum+= element.highway_mpg ; 
+        city_sum+= element.city_mpg ;
+        highway_sum+= element.highway_mpg ; 
     }) ; 
-    return sum / (mpg_data.length * 2) ; 
+    let cityMean = city_sum / mpg_data.length ; 
+    let highwayMean = highway_sum / mpg_data.length ; 
+    return {city: cityMean , highway:highwayMean} ; 
 }
 
 export function getAllYearStats() {
@@ -114,26 +117,26 @@ export const moreStats = {
 };
 
 export function getMakerHybrids() {
-    let newData = mpg_data.filter(element => {return element.hybrid;}) ; //Filter for only hybrids
+    let filteredData = mpg_data.filter(element => {return element.hybrid;}) ; //Filter for only hybrids
 
     let makerHybridsArray = [] ;
 
-    makerHybridsArray.push({make:newData[0].make , hybrids : [newData[0].id]}) ;
+    makerHybridsArray.push({make:filteredData[0].make , hybrids : [filteredData[0].id]}) ;
 
-    for(let x = 1 ; x < newData.length ; x++){
+    for(let x = 1 ; x < filteredData.length ; x++){
         let makeInArray = false ; 
         let makeIndex = -1 ; 
         for(let y = 0 ; y<makerHybridsArray.length ; y++){
-            if(makerHybridsArray[y].make == newData[x].make){
+            if(makerHybridsArray[y].make == filteredData[x].make){
                 makeInArray = true ; 
                 makeIndex = y ; 
             }
         }
         if(makeInArray){
-            makerHybridsArray[makeIndex].hybrids.push(newData[x].id) ; 
+            makerHybridsArray[makeIndex].hybrids.push(filteredData[x].id) ; 
         }
         else{
-            makerHybridsArray.push({make:newData[x].make , hybrids : [newData[x].id]}) ; 
+            makerHybridsArray.push({make:filteredData[x].make , hybrids : [filteredData[x].id]}) ; 
         }
     }
     return makerHybridsArray ; 
