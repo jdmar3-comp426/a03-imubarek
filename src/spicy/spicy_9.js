@@ -16,10 +16,11 @@
  */
 export const repeat = (fn, n, ...params) => {
     //let arrayResult = [] ; 
-    for(let x = 1 ; x<=n ; x++){
+    for(let x = 1 ; x<=n-1 ; x++){
         //arrayResult.push(fn(params)) ; 
         fn(params) ; 
     }
+    return fn(params) ; 
     //return arrayResult ; 
 };
 
@@ -161,13 +162,13 @@ export const someEven = (arr, test) => {
  *       -->  { pass: [1, 5, 31], fail: [90] }
  */
 export const filter = (arr, test) => {
-    let filteredArray = {"pass" : [] , "failed" : []} ;  
+    let filteredArray = {"pass" : [] , "fail" : []} ;  
     for(let x = 0 ; x<arr.length ; x++){
         if(test(arr[x])){
             filteredArray["pass"].push(arr[x]) ;  
         }
         else{
-            filteredArray["failed"].push(arr[x]) ;
+            filteredArray["fail"].push(arr[x]) ;
         }
     }
     return filteredArray;
