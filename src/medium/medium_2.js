@@ -1,5 +1,6 @@
 import mpg_data from "./data/mpg_data.js";
 import {getStatistics} from "./medium_1.js";
+import {getSum} from "./medium_1.js" ; 
 
 /*
 This section can be done by using the array prototype functions.
@@ -113,7 +114,7 @@ export function getRatioHybrids() {
  */
 export const moreStats = {
     makerHybrids: getMakerHybrids(),
-    avgMpgByYearAndHybrid: undefined
+    avgMpgByYearAndHybrid: getAvgMpgByYearAndHybrid()
 };
 
 export function getMakerHybrids() {
@@ -140,9 +141,49 @@ export function getMakerHybrids() {
         }
     }
     return makerHybridsArray ; 
+}
+export function getAvgMpgByYearAndHybrid(){
+    let yearsData = {} ;
 
+    //First collect all the datapoints for each year in the dictionary
+    for(let x = 0 ; x<mpg_data.length;x++){ 
+        if(mpg_data[x].year in yearsData){ 
+            if(mpg_data[x].hybrid){ 
+                yearsData[mpg_data[x].year]["hybrid"]["city"].push(mpg_data[x].city_mpg) ; 
+                yearsData[mpg_data[x].year]["hybrid"]["highway"].push(mpg_data[x].highway_mpg) ;
+            }
+            else{
+                yearsData[mpg_data[x].year]["notHybrid"]["city"].push(mpg_data[x].city_mpg) ; 
+                yearsData[mpg_data[x].year]["notHybrid"]["highway"].push(mpg_data[x].highway_mpg) ;
+            }
+        }
+        else{ 
+            if(mpg_data[x].hyrbid){
+                yearsData[mpg_data[x].year] = {"hybrid": {"city": [mpg_data[x].city_mpg] , "highway": [mpg_data[x].highway_mpg]}, "notHybrid":{"city":[] , "highway": []}  } ; 
+                 
+            }
+            else{
+                yearsData[mpg_data[x].year] = {"hybrid": {"city":[] , "highway": []} , "notHybrid":{"city": [mpg_data[x].city_mpg] , "highway": [mpg_data[x].highway_mpg]}  } ;  
+            }
+        }
+    }
+    
+    //Go through each year and do the mean calculations and place this mean in each array rather than the numbers
+    for ( const [key,value] of Object.entries(yearsData)) {
+        let hybridCitySum = getSum(yearsData[key]["hybrid"]["city"]) ;
+        yearsData[key]["hybrid"]["city"] = hybridCitySum / yearsData[key]["hybrid"]["city"].length ; 
 
+        let hybridHighwaySum = getSum(yearsData[key]["hybrid"]["highway"]) ;
+        yearsData[key]["hybrid"]["highway"] = hybridHighwaySum / yearsData[key]["hybrid"]["highway"].length ;
 
+        let notHybridCitySum = getSum(yearsData[key]["notHybrid"]["city"]) ;
+        yearsData[key]["notHybrid"]["city"] = notHybridCitySum / yearsData[key]["notHybrid"]["city"].length ;
+
+        let notHybridHighwaySum = getSum(yearsData[key]["notHybrid"]["highway"]) ;
+        yearsData[key]["notHybrid"]["highway"] = notHybridHighwaySum / yearsData[key]["notHybrid"]["highway"].length ;
+
+    }
+    return yearsData ; 
 }
 
 
