@@ -17,5 +17,6 @@ import {searchByYear, searchHighPower, searchName} from "./medium/medium_3.js";
 import {searchMpg} from "./medium/medium_3.js";
 import {getAvgMpgByYearAndHybrid} from "./medium/medium_2.js";
 import mpg_data from "./medium/data/mpg_data.js";
+import {tenTimesFifty} from "./spicy/spicy_9.js" ; 
 
-console.log(moreStats.avgMpgByYearAndHybrid) ;  
+console.log(tenTimesFifty()) ;  
