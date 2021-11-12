@@ -161,13 +161,16 @@ export const someEven = (arr, test) => {
  *       -->  { pass: [1, 5, 31], fail: [90] }
  */
 export const filter = (arr, test) => {
-    let passing = true ; 
+    let filteredArray = {"pass" : [] , "failed" : []} ;  
     for(let x = 0 ; x<arr.length ; x++){
-        if(!test(arr[x])){
-            passing = false ; 
+        if(test(arr[x])){
+            filteredArray["pass"].push(arr[x]) ;  
+        }
+        else{
+            filteredArray["failed"].push(arr[x]) ;
         }
     }
-    return passing ;
+    return filteredArray;
 };
 
 
@@ -198,23 +201,9 @@ export const anEvenIsOdd = (arr) => {
  *   pass the test. You must use the filter function.
  */
 export const hasExactly = (arr, test, n) => {
-    let allPass = filter(arr,test) ; 
-    if(allPass()){
-        if (arr.length == n){
-            return true ; 
-        }
-        else{
-            return false ; 
-        }
-    }
-    let count = 0 ;
-    for(let x = 0 ;x<arr.length ; x++){
-        if(test(arr[x])){
-            count++ ; 
-        }
-    }
-    if(count == n){
-        return true; 
+    let filteredArray = filter(arr,test) ; 
+    if(filteredArray["pass"].length == n ){
+        return true ; 
     }
     else{
         return false ; 
